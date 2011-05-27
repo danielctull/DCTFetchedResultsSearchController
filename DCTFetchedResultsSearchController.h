@@ -22,17 +22,17 @@ typedef UITableViewCell *(^DCTFetchedResultsSearchControllerCellBlock) (UITableV
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
 
-@property (nonatomic, retain) DCTFetchedResultsSearchControllerSearchBlock searchBlock;
-@property (nonatomic, retain) DCTFetchedResultsSearchControllerSelectionBlock selectionBlock;
-@property (nonatomic, retain) DCTFetchedResultsSearchControllerSelectionBlock accessorySelectionBlock;
-@property (nonatomic, retain) DCTFetchedResultsSearchControllerCellBlock cellBlock;
+@property (nonatomic, copy) DCTFetchedResultsSearchControllerSearchBlock searchBlock;
+@property (nonatomic, copy) DCTFetchedResultsSearchControllerSelectionBlock selectionBlock;
+@property (nonatomic, copy) DCTFetchedResultsSearchControllerSelectionBlock accessorySelectionBlock;
+@property (nonatomic, copy) DCTFetchedResultsSearchControllerCellBlock cellBlock;
 
-@property (nonatomic, assign) id<DCTFetchedResultsSearchControllerDelegate> delegate;
+@property (nonatomic, assign) IBOutlet id<DCTFetchedResultsSearchControllerDelegate> delegate;
 @end
 
 
 @protocol DCTFetchedResultsSearchControllerDelegate <NSObject>
-
+@optional
 - (NSFetchRequest *)fetchedResultsSearchController:(DCTFetchedResultsSearchController *)fetchedResultsSearchController
 					   fetchRequestForSearchString:(NSString *)searchString
 									   scopeOtions:(NSArray *)scopeOptions

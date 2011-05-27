@@ -54,8 +54,8 @@
 	searchDisplayController = [sdc retain];
 	
 	searchDisplayController.delegate = self;
-	searchDisplayController.searchResultsTableView.delegate = self;
-	searchDisplayController.searchResultsTableView.dataSource = self;
+	searchDisplayController.searchResultsDataSource = self;
+	searchDisplayController.searchResultsDelegate = self;
 }
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -112,6 +112,8 @@
 #pragma mark - UISearchDisplayControllerDelegate methods
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {	
+	
+	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), searchString);
 	
 	UISearchBar *searchBar = self.searchDisplayController.searchBar;
 	NSArray *scopeOptions = searchBar.scopeButtonTitles;
@@ -229,6 +231,10 @@
 
 - (void)dctInternal_setupFetchedResultsControllerWithFetchRequest:(NSFetchRequest *)fetchRequest
 											 managedObjectContext:(NSManagedObjectContext *)moc {
+	
+	if (fetchRequest == nil) return;
+	
+	if (moc == nil) return;
 	
 	if ([fetchRequest isEqual:self.fetchedResultsController.fetchRequest] &&
 		[moc isEqual:self.fetchedResultsController.managedObjectContext]) return;

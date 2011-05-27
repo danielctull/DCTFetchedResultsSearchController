@@ -7,6 +7,7 @@
 //
 
 #import "DCTFetchedResultsSearchControllerAppDelegate.h"
+#import "Person.h"
 
 @interface DCTFetchedResultsSearchControllerAppDelegate ()
 - (NSManagedObjectContext *)managedObjectContext;
@@ -15,13 +16,54 @@
 @implementation DCTFetchedResultsSearchControllerAppDelegate
 
 @synthesize window;
+@synthesize fetchedResultsSearchController;
+@synthesize tableView;
+@synthesize searchBar;
 
 - (void)dealloc {
-	[window release];
+	[tableView release], tableView = nil;
+	[searchBar release], searchBar = nil;
+	[fetchedResultsSearchController release], fetchedResultsSearchController = nil;
+	[window release], window = nil;
 	[super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	
+	NSManagedObjectContext *moc = [self managedObjectContext];
+	
+	self.fetchedResultsSearchController.managedObjectContext = moc;
+	
+	self.fetchedResultsSearchController.searchBlock = ^ NSFetchRequest * (NSString *searchString, NSArray *scopeOptions, NSInteger selectedOption) {
+			
+		NSFetchRequest *request = [[NSFetchRequest alloc] init];
+		
+		[request setEntity:[NSEntityDescription entityForName:@"Person" inManagedObjectContext:moc]];
+
+		[request setPredicate:[NSPredicate predicateWithFormat:@"firstName LIKE %@ OR surname LIKE %@", searchString, searchString]];
+		
+		NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
+		[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+		
+		return [request autorelease];
+	};
+	
+	self.fetchedResultsSearchController.cellBlock = ^ UITableViewCell * (UITableView *tv, NSIndexPath *indexPath, id object) {
+		
+		UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:@"cell"];
+		
+		if (cell == nil) cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+														reuseIdentifier:@"cell"] autorelease];
+		
+		Person *person = (Person *)object;
+		
+		cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", person.firstName, person.surname];
+		
+		return cell;
+		
+	};
+	
+	self.tableView.tableHeaderView = self.searchBar;
 	[self.window makeKeyAndVisible];
     return YES;
 }
