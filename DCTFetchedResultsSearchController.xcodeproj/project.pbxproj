@@ -15,7 +15,6 @@
 		2440527C1390315D00515ADE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2440527B1390315D00515ADE /* main.m */; };
 		2440527F1390315D00515ADE /* DCTFetchedResultsSearchControllerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2440527E1390315D00515ADE /* DCTFetchedResultsSearchControllerAppDelegate.m */; };
 		244052821390315D00515ADE /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 244052801390315D00515ADE /* MainWindow.xib */; };
-		244052851390315D00515ADE /* DCTFetchedResultsSearchController.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 244052831390315D00515ADE /* DCTFetchedResultsSearchController.xcdatamodeld */; };
 		244052911390317B00515ADE /* DCTFetchedResultsSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244052901390317B00515ADE /* DCTFetchedResultsSearchController.m */; };
 		2480DAC913904EEC00DEE726 /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2480DAAB13904EEC00DEE726 /* Address.m */; };
 		2480DACA13904EEC00DEE726 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 2480DAAD13904EEC00DEE726 /* Person.m */; };
@@ -36,7 +35,6 @@
 		2440527D1390315D00515ADE /* DCTFetchedResultsSearchControllerAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTFetchedResultsSearchControllerAppDelegate.h; sourceTree = "<group>"; };
 		2440527E1390315D00515ADE /* DCTFetchedResultsSearchControllerAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTFetchedResultsSearchControllerAppDelegate.m; sourceTree = "<group>"; };
 		244052811390315D00515ADE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		244052841390315D00515ADE /* DCTFetchedResultsSearchController.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DCTFetchedResultsSearchController.xcdatamodel; sourceTree = "<group>"; };
 		2440528F1390317B00515ADE /* DCTFetchedResultsSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTFetchedResultsSearchController.h; sourceTree = "<group>"; };
 		244052901390317B00515ADE /* DCTFetchedResultsSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTFetchedResultsSearchController.m; sourceTree = "<group>"; };
 		2480DAAA13904EEC00DEE726 /* Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Address.h; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 				2440527D1390315D00515ADE /* DCTFetchedResultsSearchControllerAppDelegate.h */,
 				2440527E1390315D00515ADE /* DCTFetchedResultsSearchControllerAppDelegate.m */,
 				244052801390315D00515ADE /* MainWindow.xib */,
-				244052831390315D00515ADE /* DCTFetchedResultsSearchController.xcdatamodeld */,
 				244052751390315D00515ADE /* Supporting Files */,
 			);
 			path = DCTFetchedResultsSearchController;
@@ -195,7 +192,6 @@
 			files = (
 				2440527C1390315D00515ADE /* main.m in Sources */,
 				2440527F1390315D00515ADE /* DCTFetchedResultsSearchControllerAppDelegate.m in Sources */,
-				244052851390315D00515ADE /* DCTFetchedResultsSearchController.xcdatamodeld in Sources */,
 				244052911390317B00515ADE /* DCTFetchedResultsSearchController.m in Sources */,
 				2480DAC913904EEC00DEE726 /* Address.m in Sources */,
 				2480DACA13904EEC00DEE726 /* Person.m in Sources */,
@@ -311,16 +307,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		244052831390315D00515ADE /* DCTFetchedResultsSearchController.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				244052841390315D00515ADE /* DCTFetchedResultsSearchController.xcdatamodel */,
-			);
-			currentVersion = 244052841390315D00515ADE /* DCTFetchedResultsSearchController.xcdatamodel */;
-			path = DCTFetchedResultsSearchController.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		2480DAAF13904EEC00DEE726 /* SampleCoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
