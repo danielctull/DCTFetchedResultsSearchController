@@ -86,7 +86,10 @@
 	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:tableView:cellForRowAtIndexPath:withObject:)])
 		return [self.delegate fetchedResultsSearchController:self tableView:tableView cellForRowAtIndexPath:indexPath withObject:object];
 	
-	return self.cellBlock(tableView, indexPath, object);
+	if (self.cellBlock != nil) 
+		return self.cellBlock(tableView, indexPath, object);
+	
+	return nil;
 }
 
 #pragma mark - UITableViewDelegate
@@ -97,7 +100,7 @@
 	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:tableView:didSelectRowAtIndexPath:withObject:)])
 		[self.delegate fetchedResultsSearchController:self tableView:tableView didSelectRowAtIndexPath:indexPath withObject:object];
 	
-	self.selectionBlock(tableView, indexPath, object);
+	if (self.selectionBlock != nil) self.selectionBlock(tableView, indexPath, object);
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
@@ -106,7 +109,7 @@
 	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:tableView:accessoryButtonTappedForRowWithIndexPath:withObject:)])
 		[self.delegate fetchedResultsSearchController:self tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath withObject:object];
 	
-	self.accessorySelectionBlock(tableView, indexPath, object);
+	if (self.accessorySelectionBlock != nil) self.accessorySelectionBlock(tableView, indexPath, object);
 }
 
 #pragma mark - UISearchDisplayControllerDelegate methods
@@ -226,7 +229,10 @@
 												 scopeOtions:scopeOptions
 											  selectedOption:selectedOption];
 		
-	return self.searchBlock(searchString, scopeOptions, selectedOption);
+	if (self.searchBlock != nil) 
+		return self.searchBlock(searchString, scopeOptions, selectedOption);
+	
+	return nil;
 }
 
 - (void)dctInternal_setupFetchedResultsControllerWithFetchRequest:(NSFetchRequest *)fetchRequest
