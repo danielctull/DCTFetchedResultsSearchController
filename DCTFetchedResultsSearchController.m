@@ -8,9 +8,8 @@
 
 #import "DCTFetchedResultsSearchController.h"
 
-@interface DCTFetchedResultsSearchController () {
-	NSFetchedResultsController *fetchedResultsController;
-}
+@interface DCTFetchedResultsSearchController ()
+- (void)dctInternal_setupFetchedResultsController;
 @end
 
 @implementation DCTFetchedResultsSearchController
@@ -21,10 +20,13 @@
 @synthesize selectionBlock;
 @synthesize accessorySelectionBlock;
 @synthesize cellBlock;
+@synthesize fetchedResultsController;
+@synthesize fetchRequest;
 
 #pragma mark - NSObject
 
 - (void)dealloc {
+	[fetchRequest release], fetchRequest = nil;
 	[fetchedResultsController release], fetchedResultsController = nil;
 	[searchDisplayController release], searchDisplayController = nil;
 	[managedObjectContext release], managedObjectContext = nil;
@@ -39,22 +41,12 @@
 
 - (void)setFetchRequest:(NSFetchRequest *)fr {
 	
-	if ([fr isEqual:self.fetchRequest]) return;
+	if ([fr isEqual:fetchRequest]) return;
 	
-	fetchedResultsController.delegate = nil;
-	[fetchedResultsController release];
+	[fetchRequest release];
+	fetchRequest = [fr retain];
 	
-	fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fr
-																			managedObjectContext:self.managedObjectContext
-																	 sectionNameKeyPath:nil
-																			  cacheName:nil];
-	fetchedResultsController.delegate = self;
-	[self.searchDisplayController.searchResultsTableView reloadData];
-	[fetchedResultsController performFetch:nil];
-}
-
-- (NSFetchRequest *)fetchRequest {
-	return fetchedResultsController.fetchRequest;
+	[self dctInternal_setupFetchedResultsController];
 }
 
 - (void)setSearchDisplayController:(UISearchDisplayController *)sdc {
@@ -67,6 +59,16 @@
 	searchDisplayController.delegate = self;
 	searchDisplayController.searchResultsTableView.delegate = self;
 	searchDisplayController.searchResultsTableView.dataSource = self;
+}
+
+- (void)setManagedObjectContext:(NSManagedObjectContext *)moc {
+	
+	if ([moc isEqual:managedObjectContext]) return;
+	
+	[managedObjectContext release];
+	managedObjectContext = [moc retain];
+	
+	[self dctInternal_setupFetchedResultsController];
 }
 
 #pragma mark - UITableViewDataSource
@@ -189,6 +191,20 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.searchDisplayController.searchResultsTableView endUpdates];
+}
+
+- (void)dctInternal_setupFetchedResultsController {
+	
+	fetchedResultsController.delegate = nil;
+	[fetchedResultsController release];
+	
+	fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest
+																   managedObjectContext:self.managedObjectContext
+																	 sectionNameKeyPath:nil
+																			  cacheName:nil];
+	fetchedResultsController.delegate = self;
+	[self.searchDisplayController.searchResultsTableView reloadData];
+	[fetchedResultsController performFetch:nil];
 }
 
 @end

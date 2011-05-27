@@ -6,6 +6,7 @@
 //  Copyright 2011 Daniel Tull. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
@@ -18,8 +19,10 @@ typedef UITableViewCell *(^DCTFetchedResultsSearchControllerCellBlock) (UITableV
 @property (nonatomic, retain) UISearchDisplayController *searchDisplayController;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSFetchRequest *fetchRequest;
+@property (nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
 
 @property (nonatomic, retain) DCTFetchedResultsSearchControllerSearchBlock searchBlock;
-@property (nonatomic, retain) DCTFetchedResultsSearchControllerSelectionBlock selectionBlock, accessorySelectionBlock;
+@property (nonatomic, retain) DCTFetchedResultsSearchControllerSelectionBlock selectionBlock;
+@property (nonatomic, retain) DCTFetchedResultsSearchControllerSelectionBlock accessorySelectionBlock;
 @property (nonatomic, retain) DCTFetchedResultsSearchControllerCellBlock cellBlock;
 @end
