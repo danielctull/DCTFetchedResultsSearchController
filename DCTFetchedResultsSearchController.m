@@ -22,10 +22,12 @@
 @synthesize cellBlock;
 @synthesize fetchedResultsController;
 @synthesize fetchRequest;
+@synthesize delegate;
 
 #pragma mark - NSObject
 
 - (void)dealloc {
+	delegate = nil;
 	[fetchRequest release], fetchRequest = nil;
 	[fetchedResultsController release], fetchedResultsController = nil;
 	[searchDisplayController release], searchDisplayController = nil;
@@ -84,6 +86,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	id object = [fetchedResultsController objectAtIndexPath:indexPath];
+	
+	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:tableView:cellForRowAtIndexPath:withObject:)])
+		return [self.delegate fetchedResultsSearchController:self tableView:tableView cellForRowAtIndexPath:indexPath withObject:object];
+	
 	return self.cellBlock(tableView, indexPath, object);
 }
 
@@ -91,11 +97,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	id object = [fetchedResultsController objectAtIndexPath:indexPath];
+	
+	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:tableView:didSelectRowAtIndexPath:withObject:)])
+		[self.delegate fetchedResultsSearchController:self tableView:tableView didSelectRowAtIndexPath:indexPath withObject:object];
+	
 	self.selectionBlock(tableView, indexPath, object);
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
 	id object = [fetchedResultsController objectAtIndexPath:indexPath];
+	
+	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:tableView:accessoryButtonTappedForRowWithIndexPath:withObject:)])
+		[self.delegate fetchedResultsSearchController:self tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath withObject:object];
+	
 	self.accessorySelectionBlock(tableView, indexPath, object);
 }
 
@@ -108,7 +122,15 @@
 	NSArray *scopeOptions = searchBar.scopeButtonTitles;
 	NSInteger selectedOption = searchBar.selectedScopeButtonIndex;
 	
-	self.fetchRequest = self.searchBlock(searchString, scopeOptions, selectedOption);
+	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:fetchRequestForSearchString:withScopeOtions:selectedOption:)]) {
+		
+		self.fetchRequest = [self.delegate fetchedResultsSearchController:self
+											  fetchRequestForSearchString:searchString
+														  withScopeOtions:scopeOptions
+														   selectedOption:selectedOption];
+	} else {
+		self.fetchRequest = self.searchBlock(searchString, scopeOptions, selectedOption);
+	}
 	
 	return NO;
 }
@@ -119,7 +141,15 @@
 	NSString *searchString = searchBar.text;
 	NSArray *scopeOptions = searchBar.scopeButtonTitles;
 	
-	self.fetchRequest = self.searchBlock(searchString, scopeOptions, selectedOption);
+	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:fetchRequestForSearchString:withScopeOtions:selectedOption:)]) {
+		
+		self.fetchRequest = [self.delegate fetchedResultsSearchController:self
+											  fetchRequestForSearchString:searchString
+														  withScopeOtions:scopeOptions
+														   selectedOption:selectedOption];
+	} else {
+		self.fetchRequest = self.searchBlock(searchString, scopeOptions, selectedOption);
+	}
 	
 	return NO;
 }

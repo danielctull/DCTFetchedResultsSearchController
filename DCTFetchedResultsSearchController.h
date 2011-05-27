@@ -14,6 +14,8 @@ typedef NSFetchRequest *(^DCTFetchedResultsSearchControllerSearchBlock) (NSStrin
 typedef void (^DCTFetchedResultsSearchControllerSelectionBlock) (UITableView *tableView, NSIndexPath *indexPath, id object);
 typedef UITableViewCell *(^DCTFetchedResultsSearchControllerCellBlock) (UITableView *tableView, NSIndexPath *indexPath, id object);
 
+@protocol DCTFetchedResultsSearchControllerDelegate;
+
 @interface DCTFetchedResultsSearchController : NSObject <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate>
 
 @property (nonatomic, retain) UISearchDisplayController *searchDisplayController;
@@ -25,4 +27,31 @@ typedef UITableViewCell *(^DCTFetchedResultsSearchControllerCellBlock) (UITableV
 @property (nonatomic, retain) DCTFetchedResultsSearchControllerSelectionBlock selectionBlock;
 @property (nonatomic, retain) DCTFetchedResultsSearchControllerSelectionBlock accessorySelectionBlock;
 @property (nonatomic, retain) DCTFetchedResultsSearchControllerCellBlock cellBlock;
+
+@property (nonatomic, assign) id<DCTFetchedResultsSearchControllerDelegate> delegate;
+@end
+
+
+@protocol DCTFetchedResultsSearchControllerDelegate <NSObject>
+
+- (NSFetchRequest *)fetchedResultsSearchController:(DCTFetchedResultsSearchController *)fetchedResultsSearchController
+					   fetchRequestForSearchString:(NSString *)searchString
+								   withScopeOtions:(NSArray *)scopeOptions
+									selectedOption:(NSInteger)selectedOption;
+
+- (UITableViewCell *)fetchedResultsSearchController:(DCTFetchedResultsSearchController *)fetchedResultsSearchController
+										  tableView:(UITableView *)tableView
+							  cellForRowAtIndexPath:(NSIndexPath *)indexPath
+										 withObject:(id)object;
+
+- (void)fetchedResultsSearchController:(DCTFetchedResultsSearchController *)fetchedResultsSearchController
+							 tableView:(UITableView *)tableView
+			   didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+							withObject:(id)object;
+
+- (void)fetchedResultsSearchController:(DCTFetchedResultsSearchController *)fetchedResultsSearchController
+							 tableView:(UITableView *)tableView
+accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+							withObject:(id)object;
+
 @end
