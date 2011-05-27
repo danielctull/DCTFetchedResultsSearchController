@@ -20,7 +20,6 @@ typedef UITableViewCell *(^DCTFetchedResultsSearchControllerCellBlock) (UITableV
 
 @property (nonatomic, retain) IBOutlet UISearchDisplayController *searchDisplayController;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain) NSFetchRequest *fetchRequest;
 @property (nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
 
 @property (nonatomic, retain) DCTFetchedResultsSearchControllerSearchBlock searchBlock;
@@ -36,7 +35,7 @@ typedef UITableViewCell *(^DCTFetchedResultsSearchControllerCellBlock) (UITableV
 
 - (NSFetchRequest *)fetchedResultsSearchController:(DCTFetchedResultsSearchController *)fetchedResultsSearchController
 					   fetchRequestForSearchString:(NSString *)searchString
-								   withScopeOtions:(NSArray *)scopeOptions
+									   scopeOtions:(NSArray *)scopeOptions
 									selectedOption:(NSInteger)selectedOption;
 
 - (UITableViewCell *)fetchedResultsSearchController:(DCTFetchedResultsSearchController *)fetchedResultsSearchController

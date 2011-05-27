@@ -9,7 +9,14 @@
 #import "DCTFetchedResultsSearchController.h"
 
 @interface DCTFetchedResultsSearchController ()
-- (void)dctInternal_setupFetchedResultsController;
+
+- (void)dctInternal_setupFetchedResultsControllerWithFetchRequest:(NSFetchRequest *)fetchRequest
+											 managedObjectContext:(NSManagedObjectContext *)moc;
+
+- (NSFetchRequest *)dctInternal_fetchRequestForSearchString:(NSString *)searchString
+												scopeOtions:(NSArray *)scopeOptions
+											 selectedOption:(NSInteger)selectedOption;
+
 @end
 
 @implementation DCTFetchedResultsSearchController
@@ -21,14 +28,12 @@
 @synthesize accessorySelectionBlock;
 @synthesize cellBlock;
 @synthesize fetchedResultsController;
-@synthesize fetchRequest;
 @synthesize delegate;
 
 #pragma mark - NSObject
 
 - (void)dealloc {
 	delegate = nil;
-	[fetchRequest release], fetchRequest = nil;
 	[fetchedResultsController release], fetchedResultsController = nil;
 	[searchDisplayController release], searchDisplayController = nil;
 	[managedObjectContext release], managedObjectContext = nil;
@@ -40,16 +45,6 @@
 }
 
 #pragma mark - DCTFetchedResultsSearchController
-
-- (void)setFetchRequest:(NSFetchRequest *)fr {
-	
-	if ([fr isEqual:fetchRequest]) return;
-	
-	[fetchRequest release];
-	fetchRequest = [fr retain];
-	
-	[self dctInternal_setupFetchedResultsController];
-}
 
 - (void)setSearchDisplayController:(UISearchDisplayController *)sdc {
 	
@@ -70,7 +65,8 @@
 	[managedObjectContext release];
 	managedObjectContext = [moc retain];
 	
-	[self dctInternal_setupFetchedResultsController];
+	[self dctInternal_setupFetchedResultsControllerWithFetchRequest:self.fetchedResultsController.fetchRequest
+											   managedObjectContext:self.managedObjectContext];
 }
 
 #pragma mark - UITableViewDataSource
@@ -115,22 +111,17 @@
 
 #pragma mark - UISearchDisplayControllerDelegate methods
 
-
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {	
 	
 	UISearchBar *searchBar = self.searchDisplayController.searchBar;
 	NSArray *scopeOptions = searchBar.scopeButtonTitles;
 	NSInteger selectedOption = searchBar.selectedScopeButtonIndex;
 	
-	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:fetchRequestForSearchString:withScopeOtions:selectedOption:)]) {
-		
-		self.fetchRequest = [self.delegate fetchedResultsSearchController:self
-											  fetchRequestForSearchString:searchString
-														  withScopeOtions:scopeOptions
-														   selectedOption:selectedOption];
-	} else {
-		self.fetchRequest = self.searchBlock(searchString, scopeOptions, selectedOption);
-	}
+	NSFetchRequest *fr = [self dctInternal_fetchRequestForSearchString:searchString
+														   scopeOtions:scopeOptions
+														selectedOption:selectedOption];
+	
+	[self dctInternal_setupFetchedResultsControllerWithFetchRequest:fr managedObjectContext:self.managedObjectContext];
 	
 	return NO;
 }
@@ -141,15 +132,12 @@
 	NSString *searchString = searchBar.text;
 	NSArray *scopeOptions = searchBar.scopeButtonTitles;
 	
-	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:fetchRequestForSearchString:withScopeOtions:selectedOption:)]) {
-		
-		self.fetchRequest = [self.delegate fetchedResultsSearchController:self
-											  fetchRequestForSearchString:searchString
-														  withScopeOtions:scopeOptions
-														   selectedOption:selectedOption];
-	} else {
-		self.fetchRequest = self.searchBlock(searchString, scopeOptions, selectedOption);
-	}
+	NSFetchRequest *fr = [self dctInternal_fetchRequestForSearchString:searchString
+														   scopeOtions:scopeOptions
+														selectedOption:selectedOption];
+	
+	[self dctInternal_setupFetchedResultsControllerWithFetchRequest:fr managedObjectContext:self.managedObjectContext];
+	
 	
 	return NO;
 }
@@ -223,13 +211,33 @@
     [self.searchDisplayController.searchResultsTableView endUpdates];
 }
 
-- (void)dctInternal_setupFetchedResultsController {
+
+#pragma mark - Internal
+
+- (NSFetchRequest *)dctInternal_fetchRequestForSearchString:(NSString *)searchString
+												scopeOtions:(NSArray *)scopeOptions
+											 selectedOption:(NSInteger)selectedOption {
+	
+	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:fetchRequestForSearchString:scopeOtions:selectedOption:)])
+		return [self.delegate fetchedResultsSearchController:self
+								 fetchRequestForSearchString:searchString
+												 scopeOtions:scopeOptions
+											  selectedOption:selectedOption];
+		
+	return self.searchBlock(searchString, scopeOptions, selectedOption);
+}
+
+- (void)dctInternal_setupFetchedResultsControllerWithFetchRequest:(NSFetchRequest *)fetchRequest
+											 managedObjectContext:(NSManagedObjectContext *)moc {
+	
+	if ([fetchRequest isEqual:self.fetchedResultsController.fetchRequest] &&
+		[moc isEqual:self.fetchedResultsController.managedObjectContext]) return;
 	
 	fetchedResultsController.delegate = nil;
 	[fetchedResultsController release];
 	
-	fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest
-																   managedObjectContext:self.managedObjectContext
+	fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+																   managedObjectContext:moc
 																	 sectionNameKeyPath:nil
 																			  cacheName:nil];
 	fetchedResultsController.delegate = self;
