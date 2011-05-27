@@ -16,6 +16,7 @@
 		2440527F1390315D00515ADE /* DCTFetchedResultsSearchControllerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2440527E1390315D00515ADE /* DCTFetchedResultsSearchControllerAppDelegate.m */; };
 		244052821390315D00515ADE /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 244052801390315D00515ADE /* MainWindow.xib */; };
 		244052851390315D00515ADE /* DCTFetchedResultsSearchController.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 244052831390315D00515ADE /* DCTFetchedResultsSearchController.xcdatamodeld */; };
+		244052911390317B00515ADE /* DCTFetchedResultsSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244052901390317B00515ADE /* DCTFetchedResultsSearchController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		2440527E1390315D00515ADE /* DCTFetchedResultsSearchControllerAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTFetchedResultsSearchControllerAppDelegate.m; sourceTree = "<group>"; };
 		244052811390315D00515ADE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		244052841390315D00515ADE /* DCTFetchedResultsSearchController.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DCTFetchedResultsSearchController.xcdatamodel; sourceTree = "<group>"; };
+		2440528F1390317B00515ADE /* DCTFetchedResultsSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTFetchedResultsSearchController.h; sourceTree = "<group>"; };
+		244052901390317B00515ADE /* DCTFetchedResultsSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTFetchedResultsSearchController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +55,8 @@
 		2440525D1390315D00515ADE = {
 			isa = PBXGroup;
 			children = (
+				2440528F1390317B00515ADE /* DCTFetchedResultsSearchController.h */,
+				244052901390317B00515ADE /* DCTFetchedResultsSearchController.m */,
 				244052741390315D00515ADE /* DCTFetchedResultsSearchController */,
 				2440526B1390315D00515ADE /* Frameworks */,
 				244052691390315D00515ADE /* Products */,
@@ -126,6 +131,7 @@
 		2440525F1390315D00515ADE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0410;
 				ORGANIZATIONNAME = "Daniel Tull";
 			};
 			buildConfigurationList = 244052621390315D00515ADE /* Build configuration list for PBXProject "DCTFetchedResultsSearchController" */;
@@ -165,6 +171,7 @@
 				2440527C1390315D00515ADE /* main.m in Sources */,
 				2440527F1390315D00515ADE /* DCTFetchedResultsSearchControllerAppDelegate.m in Sources */,
 				244052851390315D00515ADE /* DCTFetchedResultsSearchController.xcdatamodeld in Sources */,
+				244052911390317B00515ADE /* DCTFetchedResultsSearchController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,7 +206,8 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
@@ -213,7 +221,8 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
@@ -269,6 +278,7 @@
 				2440528A1390315D00515ADE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
