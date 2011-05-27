@@ -20,6 +20,6 @@ typedef UITableViewCell *(^DCTFetchedResultsSearchControllerCellBlock) (UITableV
 @property (nonatomic, retain) NSFetchRequest *fetchRequest;
 
 @property (nonatomic, retain) DCTFetchedResultsSearchControllerSearchBlock searchBlock;
-@property (nonatomic, retain) DCTFetchedResultsSearchControllerSelectionBlock selectionBlock;
+@property (nonatomic, retain) DCTFetchedResultsSearchControllerSelectionBlock selectionBlock, accessorySelectionBlock;
 @property (nonatomic, retain) DCTFetchedResultsSearchControllerCellBlock cellBlock;
 @end

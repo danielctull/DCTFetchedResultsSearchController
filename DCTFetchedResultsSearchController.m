@@ -19,6 +19,7 @@
 @synthesize managedObjectContext;
 @synthesize searchBlock;
 @synthesize selectionBlock;
+@synthesize accessorySelectionBlock;
 @synthesize cellBlock;
 
 #pragma mark - NSObject
@@ -29,6 +30,7 @@
 	[managedObjectContext release], managedObjectContext = nil;
 	[searchBlock release], searchBlock = nil;
 	[selectionBlock release], selectionBlock = nil;
+	[accessorySelectionBlock release], accessorySelectionBlock = nil;
 	[cellBlock release], cellBlock = nil;
 	[super dealloc];
 }
@@ -88,6 +90,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	id object = [fetchedResultsController objectAtIndexPath:indexPath];
 	self.selectionBlock(tableView, indexPath, object);
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+	id object = [fetchedResultsController objectAtIndexPath:indexPath];
+	self.accessorySelectionBlock(tableView, indexPath, object);
 }
 
 #pragma mark - UISearchDisplayControllerDelegate methods
