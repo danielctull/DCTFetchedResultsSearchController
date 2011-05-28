@@ -128,7 +128,7 @@
 	
 	[self dctInternal_setupFetchedResultsControllerWithFetchRequest:fr managedObjectContext:self.managedObjectContext];
 	
-	return NO;
+	return YES;
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)selectedOption {
@@ -144,7 +144,7 @@
 	[self dctInternal_setupFetchedResultsControllerWithFetchRequest:fr managedObjectContext:self.managedObjectContext];
 	
 	
-	return NO;
+	return YES;
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate methods
@@ -254,7 +254,7 @@
 																			  cacheName:nil];
 	fetchedResultsController.delegate = self;
 	[fetchedResultsController performFetch:nil];
-	[self.searchDisplayController.searchResultsTableView reloadData];
+	//[self.searchDisplayController.searchResultsTableView reloadData];
 }
 
 @end

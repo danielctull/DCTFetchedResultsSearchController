@@ -7,13 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DCTFetchedResultsSearchController.h"
 
-@interface DCTFetchedResultsSearchControllerAppDelegate : NSObject <UIApplicationDelegate, DCTFetchedResultsSearchControllerDelegate>
+@interface DCTFetchedResultsSearchControllerAppDelegate : NSObject <UIApplicationDelegate>
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet DCTFetchedResultsSearchController *fetchedResultsSearchController;
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
-@property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
 
 @end

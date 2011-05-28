@@ -20,6 +20,8 @@
 		2480DACA13904EEC00DEE726 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 2480DAAD13904EEC00DEE726 /* Person.m */; };
 		2480DACB13904EEC00DEE726 /* SampleCoreData.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2480DAAE13904EEC00DEE726 /* SampleCoreData.sqlite */; };
 		2480DACC13904EEC00DEE726 /* SampleCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2480DAAF13904EEC00DEE726 /* SampleCoreData.xcdatamodeld */; };
+		24D7048F1391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D7048D1391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.m */; };
+		24D704901391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24D7048E1391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,9 @@
 		2480DAAD13904EEC00DEE726 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		2480DAAE13904EEC00DEE726 /* SampleCoreData.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = SampleCoreData.sqlite; sourceTree = "<group>"; };
 		2480DAB013904EEC00DEE726 /* SampleCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SampleCoreData.xcdatamodel; sourceTree = "<group>"; };
+		24D7048C1391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTFetchedResultsSearchControllerTestViewController.h; sourceTree = "<group>"; };
+		24D7048D1391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTFetchedResultsSearchControllerTestViewController.m; sourceTree = "<group>"; };
+		24D7048E1391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DCTFetchedResultsSearchControllerTestViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +103,9 @@
 				2440527E1390315D00515ADE /* DCTFetchedResultsSearchControllerAppDelegate.m */,
 				244052801390315D00515ADE /* MainWindow.xib */,
 				244052751390315D00515ADE /* Supporting Files */,
+				24D7048C1391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.h */,
+				24D7048D1391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.m */,
+				24D7048E1391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.xib */,
 			);
 			path = DCTFetchedResultsSearchController;
 			sourceTree = "<group>";
@@ -180,6 +188,7 @@
 				244052791390315D00515ADE /* InfoPlist.strings in Resources */,
 				244052821390315D00515ADE /* MainWindow.xib in Resources */,
 				2480DACB13904EEC00DEE726 /* SampleCoreData.sqlite in Resources */,
+				24D704901391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +205,7 @@
 				2480DAC913904EEC00DEE726 /* Address.m in Sources */,
 				2480DACA13904EEC00DEE726 /* Person.m in Sources */,
 				2480DACC13904EEC00DEE726 /* SampleCoreData.xcdatamodeld in Sources */,
+				24D7048F1391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
