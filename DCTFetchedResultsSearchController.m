@@ -116,8 +116,6 @@
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {	
 	
-	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), searchString);
-	
 	UISearchBar *searchBar = self.searchDisplayController.searchBar;
 	NSArray *scopeOptions = searchBar.scopeButtonTitles;
 	NSInteger selectedOption = searchBar.selectedScopeButtonIndex;
@@ -254,7 +252,6 @@
 																			  cacheName:nil];
 	fetchedResultsController.delegate = self;
 	[fetchedResultsController performFetch:nil];
-	//[self.searchDisplayController.searchResultsTableView reloadData];
 }
 
 @end
