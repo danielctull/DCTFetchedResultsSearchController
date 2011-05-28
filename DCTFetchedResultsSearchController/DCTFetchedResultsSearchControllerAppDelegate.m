@@ -39,8 +39,22 @@
 		NSFetchRequest *request = [[NSFetchRequest alloc] init];
 		
 		[request setEntity:[NSEntityDescription entityForName:@"Person" inManagedObjectContext:moc]];
-
-		[request setPredicate:[NSPredicate predicateWithFormat:@"firstName LIKE %@ OR surname LIKE %@", searchString, searchString]];
+		
+		
+		
+		NSArray *searchStrings = [searchString componentsSeparatedByString:@" "];
+		
+		NSMutableArray *predicates = [NSMutableArray arrayWithCapacity:[searchStrings count]];
+		
+		for (NSString *s in searchStrings)
+			if (![s isEqualToString:@""])
+				[predicates addObject:[NSPredicate predicateWithFormat:@"firstName contains[cd] %@ OR surname contains[cd] %@", s, s]];
+		
+		NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
+		
+		[request setPredicate:predicate];
+		
+		
 		
 		NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
 		[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
