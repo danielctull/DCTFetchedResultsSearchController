@@ -253,8 +253,8 @@
 																	 sectionNameKeyPath:nil
 																			  cacheName:nil];
 	fetchedResultsController.delegate = self;
-	[self.searchDisplayController.searchResultsTableView reloadData];
 	[fetchedResultsController performFetch:nil];
+	[self.searchDisplayController.searchResultsTableView reloadData];
 }
 
 @end
