@@ -62,14 +62,13 @@
 
 - (void)dealloc {
 	delegate = nil;
-	[fetchedResultsController release], fetchedResultsController = nil;
-	[searchDisplayController release], searchDisplayController = nil;
-	[managedObjectContext release], managedObjectContext = nil;
-	[searchBlock release], searchBlock = nil;
-	[selectionBlock release], selectionBlock = nil;
-	[accessorySelectionBlock release], accessorySelectionBlock = nil;
-	[cellBlock release], cellBlock = nil;
-	[super dealloc];
+	fetchedResultsController = nil;
+	searchDisplayController = nil;
+	managedObjectContext = nil;
+	searchBlock = nil;
+	selectionBlock = nil;
+	accessorySelectionBlock = nil;
+	cellBlock = nil;
 }
 
 #pragma mark - DCTFetchedResultsSearchController
@@ -78,8 +77,7 @@
 	
 	if ([searchDisplayController isEqual:sdc]) return;
 	
-	[searchDisplayController release];
-	searchDisplayController = [sdc retain];
+	searchDisplayController = sdc;
 	
 	searchDisplayController.delegate = self;
 	searchDisplayController.searchResultsDataSource = self;
@@ -90,8 +88,7 @@
 	
 	if ([moc isEqual:managedObjectContext]) return;
 	
-	[managedObjectContext release];
-	managedObjectContext = [moc retain];
+	managedObjectContext = moc;
 	
 	[self dctInternal_setupFetchedResultsControllerWithFetchRequest:self.fetchedResultsController.fetchRequest
 											   managedObjectContext:self.managedObjectContext];
@@ -272,7 +269,6 @@
 		[moc isEqual:self.fetchedResultsController.managedObjectContext]) return;
 	
 	fetchedResultsController.delegate = nil;
-	[fetchedResultsController release];
 	
 	fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
 																   managedObjectContext:moc
