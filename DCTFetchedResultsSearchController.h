@@ -46,8 +46,8 @@ typedef UITableViewCell *(^DCTFetchedResultsSearchControllerCellBlock) (UITableV
 
 @interface DCTFetchedResultsSearchController : NSObject <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate>
 
-@property (nonatomic, retain) IBOutlet UISearchDisplayController *searchDisplayController;
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) IBOutlet UISearchDisplayController *searchDisplayController;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
 
 @property (nonatomic, copy) DCTFetchedResultsSearchControllerSearchBlock searchBlock;
@@ -55,7 +55,7 @@ typedef UITableViewCell *(^DCTFetchedResultsSearchControllerCellBlock) (UITableV
 @property (nonatomic, copy) DCTFetchedResultsSearchControllerSelectionBlock accessorySelectionBlock;
 @property (nonatomic, copy) DCTFetchedResultsSearchControllerCellBlock cellBlock;
 
-@property (nonatomic, assign) IBOutlet id<DCTFetchedResultsSearchControllerDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<DCTFetchedResultsSearchControllerDelegate> delegate;
 @end
 
 
