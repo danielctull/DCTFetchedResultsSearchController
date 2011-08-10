@@ -48,7 +48,7 @@ typedef UITableViewCell *(^DCTFetchedResultsSearchControllerCellBlock) (UITableV
 
 @property (nonatomic, strong) IBOutlet UISearchDisplayController *searchDisplayController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
 
 @property (nonatomic, copy) DCTFetchedResultsSearchControllerSearchBlock searchBlock;
 @property (nonatomic, copy) DCTFetchedResultsSearchControllerSelectionBlock selectionBlock;
