@@ -35,9 +35,13 @@
  */
 
 #import "DCTFetchedResultsSearchController.h"
+#import "DCTFetchedResultsTableViewDataSource.h"
+#import "DCTTableViewCell.h"
 
 @interface DCTFetchedResultsSearchController ()
 
+
+- (void)sharedInit;
 - (void)dctInternal_setupFetchedResultsControllerWithFetchRequest:(NSFetchRequest *)fetchRequest
 											 managedObjectContext:(NSManagedObjectContext *)moc;
 
@@ -47,28 +51,31 @@
 
 @end
 
-@implementation DCTFetchedResultsSearchController
+@implementation DCTFetchedResultsSearchController {
+	__strong NSFetchRequest *fetchRequest;
+}
 
 @synthesize searchDisplayController;
-@synthesize managedObjectContext;
 @synthesize searchBlock;
-@synthesize selectionBlock;
-@synthesize accessorySelectionBlock;
-@synthesize cellBlock;
-@synthesize fetchedResultsController;
 @synthesize delegate;
+@synthesize dataSource;
+@synthesize managedObjectContext;
 
-#pragma mark - NSObject
+- (id)init {
+	
+	if (!(self = [super init])) return nil;
+	
+	[self sharedInit];
+	
+	return self;
+}
 
-- (void)dealloc {
-	delegate = nil;
-	fetchedResultsController = nil;
-	searchDisplayController = nil;
-	managedObjectContext = nil;
-	searchBlock = nil;
-	selectionBlock = nil;
-	accessorySelectionBlock = nil;
-	cellBlock = nil;
+- (void)awakeFromNib {
+	[self sharedInit];
+}
+
+- (void)sharedInit {
+	if (!dataSource) dataSource = [[DCTFetchedResultsTableViewDataSource alloc] init];
 }
 
 #pragma mark - DCTFetchedResultsSearchController
@@ -80,8 +87,7 @@
 	searchDisplayController = sdc;
 	
 	searchDisplayController.delegate = self;
-	searchDisplayController.searchResultsDataSource = self;
-	searchDisplayController.searchResultsDelegate = self;
+	searchDisplayController.searchResultsDataSource = dataSource;
 }
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -90,58 +96,15 @@
 	
 	managedObjectContext = moc;
 	
-	[self dctInternal_setupFetchedResultsControllerWithFetchRequest:self.fetchedResultsController.fetchRequest
+	[self dctInternal_setupFetchedResultsControllerWithFetchRequest:fetchRequest
 											   managedObjectContext:self.managedObjectContext];
-}
-
-#pragma mark - UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[fetchedResultsController sections] count];
-}
-
-- (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
-	id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	id object = [fetchedResultsController objectAtIndexPath:indexPath];
-	
-	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:tableView:cellForRowAtIndexPath:withObject:)])
-		return [self.delegate fetchedResultsSearchController:self tableView:tableView cellForRowAtIndexPath:indexPath withObject:object];
-	
-	if (self.cellBlock != nil) 
-		return self.cellBlock(tableView, indexPath, object);
-	
-	return nil;
-}
-
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	id object = [fetchedResultsController objectAtIndexPath:indexPath];
-	
-	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:tableView:didSelectRowAtIndexPath:withObject:)])
-		[self.delegate fetchedResultsSearchController:self tableView:tableView didSelectRowAtIndexPath:indexPath withObject:object];
-	
-	if (self.selectionBlock != nil) self.selectionBlock(tableView, indexPath, object);
-}
-
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-	id object = [fetchedResultsController objectAtIndexPath:indexPath];
-	
-	if ([self.delegate respondsToSelector:@selector(fetchedResultsSearchController:tableView:accessoryButtonTappedForRowWithIndexPath:withObject:)])
-		[self.delegate fetchedResultsSearchController:self tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath withObject:object];
-	
-	if (self.accessorySelectionBlock != nil) self.accessorySelectionBlock(tableView, indexPath, object);
 }
 
 #pragma mark - UISearchDisplayControllerDelegate methods
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {	
 	
-	UISearchBar *searchBar = self.searchDisplayController.searchBar;
+	UISearchBar *searchBar = controller.searchBar;
 	NSArray *scopeOptions = searchBar.scopeButtonTitles;
 	NSInteger selectedOption = searchBar.selectedScopeButtonIndex;
 	
@@ -156,7 +119,7 @@
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)selectedOption {
 	
-	UISearchBar *searchBar = self.searchDisplayController.searchBar;
+	UISearchBar *searchBar = controller.searchBar;
 	NSString *searchString = searchBar.text;
 	NSArray *scopeOptions = searchBar.scopeButtonTitles;
 	
@@ -169,76 +132,6 @@
 	
 	return YES;
 }
-
-#pragma mark - NSFetchedResultsControllerDelegate methods
-
-/*
- These methods are taken straight from Apple's documentation on NSFetchedResultsController.
- */
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    [self.searchDisplayController.searchResultsTableView beginUpdates];
-}
-
-
-- (void)controller:(NSFetchedResultsController *)controller 
-  didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-		   atIndex:(NSUInteger)sectionIndex
-	 forChangeType:(NSFetchedResultsChangeType)type {
-	
-	UITableView *tableView = self.searchDisplayController.searchResultsTableView;
-	
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-					 withRowAnimation:UITableViewRowAnimationFade];
-            break;
-			
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-					 withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-
-- (void)controller:(NSFetchedResultsController *)controller 
-   didChangeObject:(id)anObject
-	   atIndexPath:(NSIndexPath *)indexPath
-	 forChangeType:(NSFetchedResultsChangeType)type
-	  newIndexPath:(NSIndexPath *)newIndexPath {
-	
-    UITableView *tableView = self.searchDisplayController.searchResultsTableView;
-	
-    switch(type) {
-			
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-							 withRowAnimation:UITableViewRowAnimationFade];
-            break;
-			
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-							 withRowAnimation:UITableViewRowAnimationFade];
-            break;
-			
-        case NSFetchedResultsChangeUpdate:
-			[tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            break;
-			
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-							 withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-							 withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.searchDisplayController.searchResultsTableView endUpdates];
-}
-
 
 #pragma mark - Internal
 
@@ -258,24 +151,20 @@
 	return nil;
 }
 
-- (void)dctInternal_setupFetchedResultsControllerWithFetchRequest:(NSFetchRequest *)fetchRequest
+- (void)dctInternal_setupFetchedResultsControllerWithFetchRequest:(NSFetchRequest *)fr
 											 managedObjectContext:(NSManagedObjectContext *)moc {
 	
-	if (fetchRequest == nil) return;
+	if (fr == nil) return;
 	
 	if (moc == nil) return;
 	
-	if ([fetchRequest isEqual:self.fetchedResultsController.fetchRequest] &&
-		[moc isEqual:self.fetchedResultsController.managedObjectContext]) return;
+	if ([fr isEqual:fetchRequest] &&
+		[moc isEqual:dataSource.fetchedResultsController.managedObjectContext]) return;
 	
-	fetchedResultsController.delegate = nil;
-	
-	fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-																   managedObjectContext:moc
-																	 sectionNameKeyPath:nil
-																			  cacheName:nil];
-	fetchedResultsController.delegate = self;
-	[fetchedResultsController performFetch:nil];
+	dataSource.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fr
+																			  managedObjectContext:moc
+																				sectionNameKeyPath:nil
+																						 cacheName:nil];
 }
 
 @end

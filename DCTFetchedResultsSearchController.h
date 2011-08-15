@@ -37,25 +37,21 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "DCTFetchedResultsTableViewDataSource.h"
 
 typedef NSFetchRequest *(^DCTFetchedResultsSearchControllerSearchBlock) (NSString *searchString, NSArray *scopeOptions, NSInteger selectedOption);
-typedef void (^DCTFetchedResultsSearchControllerSelectionBlock) (UITableView *tableView, NSIndexPath *indexPath, id object);
-typedef UITableViewCell *(^DCTFetchedResultsSearchControllerCellBlock) (UITableView *tableView, NSIndexPath *indexPath, id object);
 
 @protocol DCTFetchedResultsSearchControllerDelegate;
 
-@interface DCTFetchedResultsSearchController : NSObject <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate>
+@interface DCTFetchedResultsSearchController : NSObject <UISearchDisplayDelegate>
 
 @property (nonatomic, strong) IBOutlet UISearchDisplayController *searchDisplayController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
-
 @property (nonatomic, copy) DCTFetchedResultsSearchControllerSearchBlock searchBlock;
-@property (nonatomic, copy) DCTFetchedResultsSearchControllerSelectionBlock selectionBlock;
-@property (nonatomic, copy) DCTFetchedResultsSearchControllerSelectionBlock accessorySelectionBlock;
-@property (nonatomic, copy) DCTFetchedResultsSearchControllerCellBlock cellBlock;
+@property (nonatomic, strong, readonly) DCTFetchedResultsTableViewDataSource *dataSource;
 
 @property (nonatomic, weak) IBOutlet id<DCTFetchedResultsSearchControllerDelegate> delegate;
+
 @end
 
 
@@ -70,15 +66,4 @@ typedef UITableViewCell *(^DCTFetchedResultsSearchControllerCellBlock) (UITableV
 										  tableView:(UITableView *)tableView
 							  cellForRowAtIndexPath:(NSIndexPath *)indexPath
 										 withObject:(id)object;
-
-- (void)fetchedResultsSearchController:(DCTFetchedResultsSearchController *)fetchedResultsSearchController
-							 tableView:(UITableView *)tableView
-			   didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-							withObject:(id)object;
-
-- (void)fetchedResultsSearchController:(DCTFetchedResultsSearchController *)fetchedResultsSearchController
-							 tableView:(UITableView *)tableView
-accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
-							withObject:(id)object;
-
 @end
