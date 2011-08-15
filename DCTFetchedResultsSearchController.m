@@ -58,7 +58,7 @@
 @synthesize searchDisplayController;
 @synthesize searchBlock;
 @synthesize delegate;
-@synthesize dataSource;
+@synthesize fetchedResultsTableViewDataSource;
 @synthesize managedObjectContext;
 
 - (id)init {
@@ -75,7 +75,7 @@
 }
 
 - (void)sharedInit {
-	if (!dataSource) dataSource = [[DCTFetchedResultsTableViewDataSource alloc] init];
+	if (!fetchedResultsTableViewDataSource) fetchedResultsTableViewDataSource = [[DCTFetchedResultsTableViewDataSource alloc] init];
 }
 
 #pragma mark - DCTFetchedResultsSearchController
@@ -87,7 +87,7 @@
 	searchDisplayController = sdc;
 	
 	searchDisplayController.delegate = self;
-	searchDisplayController.searchResultsDataSource = dataSource;
+	searchDisplayController.searchResultsDataSource = fetchedResultsTableViewDataSource;
 }
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -159,12 +159,12 @@
 	if (moc == nil) return;
 	
 	if ([fr isEqual:fetchRequest] &&
-		[moc isEqual:dataSource.fetchedResultsController.managedObjectContext]) return;
+		[moc isEqual:fetchedResultsTableViewDataSource.fetchedResultsController.managedObjectContext]) return;
 	
-	dataSource.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fr
-																			  managedObjectContext:moc
-																				sectionNameKeyPath:nil
-																						 cacheName:nil];
+	fetchedResultsTableViewDataSource.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fr
+																									 managedObjectContext:moc
+																									   sectionNameKeyPath:nil
+																												cacheName:nil];
 }
 
 @end

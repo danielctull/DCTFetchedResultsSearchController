@@ -46,9 +46,9 @@ typedef NSFetchRequest *(^DCTFetchedResultsSearchControllerSearchBlock) (NSStrin
 @interface DCTFetchedResultsSearchController : NSObject <UISearchDisplayDelegate>
 
 @property (nonatomic, strong) IBOutlet UISearchDisplayController *searchDisplayController;
+@property (nonatomic, strong, readonly) DCTFetchedResultsTableViewDataSource *fetchedResultsTableViewDataSource;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, copy) DCTFetchedResultsSearchControllerSearchBlock searchBlock;
-@property (nonatomic, strong, readonly) DCTFetchedResultsTableViewDataSource *dataSource;
 
 @property (nonatomic, weak) IBOutlet id<DCTFetchedResultsSearchControllerDelegate> delegate;
 
