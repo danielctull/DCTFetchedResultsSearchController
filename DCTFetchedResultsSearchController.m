@@ -88,6 +88,7 @@
 	
 	searchDisplayController.delegate = self;
 	searchDisplayController.searchResultsDataSource = fetchedResultsTableViewDataSource;
+	fetchedResultsTableViewDataSource.tableView = searchDisplayController.searchResultsTableView;
 }
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -161,6 +162,7 @@
 	if ([fr isEqual:fetchRequest] &&
 		[moc isEqual:fetchedResultsTableViewDataSource.fetchedResultsController.managedObjectContext]) return;
 	
+	fetchedResultsTableViewDataSource.tableView = searchDisplayController.searchResultsTableView;
 	fetchedResultsTableViewDataSource.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fr
 																									 managedObjectContext:moc
 																									   sectionNameKeyPath:nil
