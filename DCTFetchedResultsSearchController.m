@@ -40,8 +40,6 @@
 
 @interface DCTFetchedResultsSearchController ()
 
-
-- (void)sharedInit;
 - (void)dctInternal_setupFetchedResultsControllerWithFetchRequest:(NSFetchRequest *)fetchRequest
 											 managedObjectContext:(NSManagedObjectContext *)moc;
 
@@ -61,21 +59,16 @@
 @synthesize fetchedResultsTableViewDataSource;
 @synthesize managedObjectContext;
 
-- (id)init {
+- (DCTFetchedResultsTableViewDataSource *)fetchedResultsTableViewDataSource {
 	
-	if (!(self = [super init])) return nil;
+	if (!fetchedResultsTableViewDataSource) {
+		fetchedResultsTableViewDataSource = [[DCTFetchedResultsTableViewDataSource alloc] init];
+		fetchedResultsTableViewDataSource.tableView = self.searchDisplayController.searchResultsTableView;
+		self.searchDisplayController.searchResultsDataSource = self.fetchedResultsTableViewDataSource;
+		fetchedResultsTableViewDataSource.managedObjectContext = self.managedObjectContext;
+	}
 	
-	[self sharedInit];
-	
-	return self;
-}
-
-- (void)awakeFromNib {
-	[self sharedInit];
-}
-
-- (void)sharedInit {
-	if (!fetchedResultsTableViewDataSource) fetchedResultsTableViewDataSource = [[DCTFetchedResultsTableViewDataSource alloc] init];
+	return  fetchedResultsTableViewDataSource;
 }
 
 #pragma mark - DCTFetchedResultsSearchController
@@ -87,8 +80,6 @@
 	searchDisplayController = sdc;
 	
 	searchDisplayController.delegate = self;
-	searchDisplayController.searchResultsDataSource = fetchedResultsTableViewDataSource;
-	fetchedResultsTableViewDataSource.tableView = searchDisplayController.searchResultsTableView;
 }
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -157,16 +148,10 @@
 	
 	if (fr == nil) return;
 	
-	if (moc == nil) return;
+	if ([fr isEqual:fetchRequest]) return;
 	
-	if ([fr isEqual:fetchRequest] &&
-		[moc isEqual:fetchedResultsTableViewDataSource.fetchedResultsController.managedObjectContext]) return;
-	
-	fetchedResultsTableViewDataSource.tableView = searchDisplayController.searchResultsTableView;
-	fetchedResultsTableViewDataSource.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fr
-																									 managedObjectContext:moc
-																									   sectionNameKeyPath:nil
-																												cacheName:nil];
+	self.fetchedResultsTableViewDataSource.tableView = searchDisplayController.searchResultsTableView;
+	fetchedResultsTableViewDataSource.fetchRequest = fr;
 }
 
 @end
