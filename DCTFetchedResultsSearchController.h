@@ -37,7 +37,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-#import "DCTFetchedResultsTableViewDataSource.h"
+#import "FRCFetchedResultsTableViewDataSource.h"
 
 typedef NSFetchRequest *(^DCTFetchedResultsSearchControllerSearchBlock) (NSString *searchString, NSArray *scopeOptions, NSInteger selectedOption);
 
@@ -46,7 +46,7 @@ typedef NSFetchRequest *(^DCTFetchedResultsSearchControllerSearchBlock) (NSStrin
 @interface DCTFetchedResultsSearchController : NSObject <UISearchDisplayDelegate>
 
 @property (nonatomic, strong) IBOutlet UISearchDisplayController *searchDisplayController;
-@property (nonatomic, strong, readonly) DCTFetchedResultsTableViewDataSource *fetchedResultsTableViewDataSource;
+@property (nonatomic, strong, readonly) FRCFetchedResultsTableViewDataSource *fetchedResultsTableViewDataSource;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, copy) DCTFetchedResultsSearchControllerSearchBlock searchBlock;
 
