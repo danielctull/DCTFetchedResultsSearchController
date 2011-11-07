@@ -2,37 +2,55 @@ h1. DCTFetchedResultsSearchController
 
 Easily manage an NSFetchedResultsController and UISearchDisplayController to give searches of a data set stored in Core Data.
 
+*2.0* 
+- Code is now written for ARC
+- Uses "FRCTableViewDataSources":https://github.com/freerangecode/FRCTableViewDataSources to act as a datasource, this is a requirement for version 2.0
+
 h2. Branch Structure
 
-There are two branches to this repository, *master* and *production*, these are described below. (Thanks to "Abizer":https://github.com/Abizern for showing me this method and for his initial writeup below.)
+There is a new branch structure for DCTFetchedResultsSearchController 2.0, *master* and *demo*. Unlike previous versions, *master* is now the branch to use as a submodule.
 
-h3. The master Branch
+h3. master
 
-The master branch contains the class extension files as well as an Xcode project that demonstrates the code and is the branch to use to see how to use the code. It as also the branch that further development of the code should be performed on.
+The master branch contains the code and should be used if you want to add these extensions as a git submodule in other projects. It will only contain the class files themselves without the Xcode project or example classes. This is preferable as it will keep your directories clean of any code which is unnecessary to your working project.
 
-h3. The production Branch
+To add this project as a submodule you should run the following from inside your project's git repository:
 
-The production branch should be used if you want to add these extensions as a git submodule in other projects and will only contain the class files themselves without the Xcode project or example classes. This is preferable as it will keep your directories clean of any code which is unnecessary to your working project, of course you can switch branches in the submodule to access the given samples.
+bc. git submodule add git://github.com/danielctull/DCTFetchedResultsSearchController.git
 
-Changes made to the master branch will be merged across to production, so it will always remain current with respect to master.
-
-To add the production branch rather than master, simply use the -b flag as shown below.
-
-bc. git submodule add -b production git://github.com/danielctull/DCTFetchedResultsSearchController.git
-
-To keep up to date with the latest changes `cd` into the directory that contains this submodule and pull the newest changes as usual
+To keep up to date with the latest changes `cd` into the directory that contains this submodule and pull the newest changes as usual:
 
 bc. git pull origin
 
+h3. demo
+
+This contains an Xcode project that demonstrates the code and is the branch to use to see how to use the code. The demo branch contains a submodule reference to the master branch to bring in the library classes.
+
+To clone the demo branch, while also pulling in any necessary submodules run the following command:
+
+bc. git clone -b demo --recursive git://github.com/danielctull/DCTFetchedResultsSearchController.git
+
+When changing to the demo branch you will need to run through the following set of commands:
+
+bc. git checkout demo
+git submodule init
+git submodule update
+
+After these you will see the example project and the library code will be in a sub-directory.
+
 h3. Artefacts
 
-Sometimes, there may be artefacts left over when switching from master to production. These are files that are ignored by git and are easily cleaned up by running
+Sometimes, there may be artefacts left over when switching from demo to master. These are files that are ignored by git and are easily cleaned up by running
 
 bc. git clean -dxf
 
+h2. Examples
+
+Examples of some of these features can be found in the iPhone app delegate.
+
 h2. License
 
-Copyright (C) 2010 Daniel Tull. All rights reserved.
+Copyright (C) 2011 Daniel Tull. All rights reserved.
  
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  
