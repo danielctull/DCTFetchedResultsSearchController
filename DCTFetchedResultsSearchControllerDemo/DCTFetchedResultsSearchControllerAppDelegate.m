@@ -15,7 +15,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
-	DCTFetchedResultsSearchControllerTestViewController *vc = [[DCTFetchedResultsSearchControllerTestViewController alloc] init];
+	DCTFetchedResultsSearchControllerTestViewController *vc = [[DCTFetchedResultsSearchControllerTestViewController alloc] initWithNibName:@"DCTFetchedResultsSearchControllerTestViewController" bundle:nil];
+	
+	vc.title = @"Search Controller Demo";
+	
 	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
 	
 	

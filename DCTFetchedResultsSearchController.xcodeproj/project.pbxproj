@@ -22,7 +22,6 @@
 		24D7048F1391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D7048D1391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.m */; };
 		24D704901391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24D7048E1391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.xib */; };
 		24E53B231467EA600029489E /* DCTFetchedResultsSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E53B211467EA600029489E /* DCTFetchedResultsSearchController.m */; };
-		24E53B241467EA600029489E /* Readme.textile in Resources */ = {isa = PBXBuildFile; fileRef = 24E53B221467EA600029489E /* Readme.textile */; };
 		24E53B3C1467EB070029489E /* FRCCollapsableSectionTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E53B271467EB070029489E /* FRCCollapsableSectionTableViewDataSource.m */; };
 		24E53B3D1467EB070029489E /* FRCFetchedResultsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E53B291467EB070029489E /* FRCFetchedResultsTableViewDataSource.m */; };
 		24E53B3E1467EB070029489E /* FRCObjectTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E53B2B1467EB070029489E /* FRCObjectTableViewDataSource.m */; };
@@ -34,7 +33,6 @@
 		24E53B441467EB070029489E /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24E53B361467EB070029489E /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator@2x.png */; };
 		24E53B451467EB070029489E /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 24E53B371467EB070029489E /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png */; };
 		24E53B461467EB070029489E /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24E53B381467EB070029489E /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted@2x.png */; };
-		24E53B471467EB070029489E /* Readme.textile in Resources */ = {isa = PBXBuildFile; fileRef = 24E53B391467EB070029489E /* Readme.textile */; };
 		24E53B481467EB070029489E /* UITableView+FRCTableViewDataSources.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E53B3B1467EB070029489E /* UITableView+FRCTableViewDataSources.m */; };
 		24E53B4A1467EE6B0029489E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E53B491467EE6B0029489E /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
@@ -275,12 +273,10 @@
 				244052821390315D00515ADE /* MainWindow.xib in Resources */,
 				2480DACB13904EEC00DEE726 /* SampleCoreData.sqlite in Resources */,
 				24D704901391363E008781F6 /* DCTFetchedResultsSearchControllerTestViewController.xib in Resources */,
-				24E53B241467EA600029489E /* Readme.textile in Resources */,
 				24E53B431467EB070029489E /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator.png in Resources */,
 				24E53B441467EB070029489E /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator@2x.png in Resources */,
 				24E53B451467EB070029489E /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png in Resources */,
 				24E53B461467EB070029489E /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted@2x.png in Resources */,
-				24E53B471467EB070029489E /* Readme.textile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
