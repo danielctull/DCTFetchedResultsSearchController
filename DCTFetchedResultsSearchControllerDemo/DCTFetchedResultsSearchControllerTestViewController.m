@@ -17,11 +17,6 @@
 
 @synthesize fetchedResultsSearchController;
 
-- (void)dealloc {
-	[fetchedResultsSearchController release], fetchedResultsSearchController = nil;
-    [super dealloc];
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
@@ -36,8 +31,6 @@
 	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
 
 	fetchedPersons = [[moc executeFetchRequest:request error:NULL] copy];
-	
-	[request release];
 	
 	self.fetchedResultsSearchController.managedObjectContext = moc;
 	
@@ -63,7 +56,7 @@
 		
 		[fr setPredicate:predicate];
 		
-		return [fr autorelease];
+		return fr;
 	};
 	
 	
@@ -71,7 +64,7 @@
 	
 	self.fetchedResultsSearchController.cellBlock = ^ UITableViewCell * (UITableView *tv, NSIndexPath *indexPath, id object) {
 		
-		UITableViewCell *cell = [[tv dequeueReusableCellWithIdentifier:@"cell"] retain];
+		UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:@"cell"];
 		
 		if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
 														reuseIdentifier:@"cell"];
@@ -80,7 +73,7 @@
 		
 		cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", person.firstName, person.surname];
 		
-		return [cell autorelease];
+		return cell;
 	};	
 }
 
@@ -124,8 +117,6 @@
 	
 	NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
 	
-	[managedObjectModel release];
-	
 	NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
 							 [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
 							 [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
@@ -142,9 +133,8 @@
 	
 	NSManagedObjectContext *managedObjectContext = [[NSManagedObjectContext alloc] init];
     [managedObjectContext setPersistentStoreCoordinator:persistentStoreCoordinator];
-	[persistentStoreCoordinator release];
 	
-	return [managedObjectContext autorelease];
+	return managedObjectContext;
 }
 
 

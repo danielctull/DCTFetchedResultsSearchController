@@ -12,11 +12,6 @@
 
 @synthesize window;
 
-- (void)dealloc {
-	[window release], window = nil;
-	[super dealloc];
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[self.window makeKeyAndVisible];
     return YES;
