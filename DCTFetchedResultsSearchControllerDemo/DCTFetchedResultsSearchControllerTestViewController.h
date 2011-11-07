@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DCTFetchedResultsSearchController.h"
 
-@interface DCTFetchedResultsSearchControllerTestViewController : UIViewController <UITableViewDataSource> {
-	NSArray *fetchedPersons;
-}
+@interface DCTFetchedResultsSearchControllerTestViewController : UITableViewController <UITableViewDataSource>
 
 @property (nonatomic, retain) IBOutlet DCTFetchedResultsSearchController *fetchedResultsSearchController;
 

@@ -7,12 +7,19 @@
 //
 
 #import "DCTFetchedResultsSearchControllerAppDelegate.h"
+#import "DCTFetchedResultsSearchControllerTestViewController.h"
 
 @implementation DCTFetchedResultsSearchControllerAppDelegate
 
 @synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	
+	DCTFetchedResultsSearchControllerTestViewController *vc = [[DCTFetchedResultsSearchControllerTestViewController alloc] init];
+	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+	
+	
+	self.window.rootViewController = nav;
 	[self.window makeKeyAndVisible];
     return YES;
 }

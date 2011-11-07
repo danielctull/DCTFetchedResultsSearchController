@@ -13,27 +13,32 @@
 - (NSManagedObjectContext *)managedObjectContext;
 @end
 
-@implementation DCTFetchedResultsSearchControllerTestViewController
+@implementation DCTFetchedResultsSearchControllerTestViewController {
+	FRCFetchedResultsTableViewDataSource *allPersonsDataSource;
+}
 
 @synthesize fetchedResultsSearchController;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
+	
 	NSManagedObjectContext *moc = [self managedObjectContext];
 	
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
-	
 	[request setEntity:[NSEntityDescription entityForName:@"Person" inManagedObjectContext:moc]];
-	
 	NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
 	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-
-	fetchedPersons = [[moc executeFetchRequest:request error:NULL] copy];
+	
+	
+	allPersonsDataSource = [[FRCFetchedResultsTableViewDataSource alloc] init];
+	allPersonsDataSource.managedObjectContext = moc;
+	allPersonsDataSource.fetchRequest = request;
+	self.tableView.dataSource = allPersonsDataSource;
+	
 	
 	self.fetchedResultsSearchController.managedObjectContext = moc;
-	
 	
 	self.fetchedResultsSearchController.searchBlock = ^ NSFetchRequest * (NSString *searchString, NSArray *scopeOptions, NSInteger selectedOption) {
 		
@@ -58,38 +63,7 @@
 		
 		return fr;
 	};
-	
-	
-	
-	
-	self.fetchedResultsSearchController.cellBlock = ^ UITableViewCell * (UITableView *tv, NSIndexPath *indexPath, id object) {
-		
-		UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:@"cell"];
-		
-		if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-														reuseIdentifier:@"cell"];
-		
-		Person *person = (Person *)object;
-		
-		cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", person.firstName, person.surname];
-		
-		return cell;
-	};	
 }
-
-
-#pragma mark - UITableViewDataSource
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [fetchedPersons count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	id object = [fetchedPersons objectAtIndex:indexPath.row];
-	return self.fetchedResultsSearchController.cellBlock(tv, indexPath, object);
-}
-
 
 - (NSManagedObjectContext *)managedObjectContext {
 	

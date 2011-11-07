@@ -36,6 +36,7 @@
 		24E53B461467EB070029489E /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24E53B381467EB070029489E /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted@2x.png */; };
 		24E53B471467EB070029489E /* Readme.textile in Resources */ = {isa = PBXBuildFile; fileRef = 24E53B391467EB070029489E /* Readme.textile */; };
 		24E53B481467EB070029489E /* UITableView+FRCTableViewDataSources.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E53B3B1467EB070029489E /* UITableView+FRCTableViewDataSources.m */; };
+		24E53B4A1467EE6B0029489E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E53B491467EE6B0029489E /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +85,7 @@
 		24E53B391467EB070029489E /* Readme.textile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.textile; sourceTree = "<group>"; };
 		24E53B3A1467EB070029489E /* UITableView+FRCTableViewDataSources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FRCTableViewDataSources.h"; sourceTree = "<group>"; };
 		24E53B3B1467EB070029489E /* UITableView+FRCTableViewDataSources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FRCTableViewDataSources.m"; sourceTree = "<group>"; };
+		24E53B491467EE6B0029489E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24E53B4A1467EE6B0029489E /* QuartzCore.framework in Frameworks */,
 				2440526D1390315D00515ADE /* UIKit.framework in Frameworks */,
 				2440526F1390315D00515ADE /* Foundation.framework in Frameworks */,
 				244052711390315D00515ADE /* CoreGraphics.framework in Frameworks */,
@@ -124,6 +127,7 @@
 		2440526B1390315D00515ADE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24E53B491467EE6B0029489E /* QuartzCore.framework */,
 				2440526C1390315D00515ADE /* UIKit.framework */,
 				2440526E1390315D00515ADE /* Foundation.framework */,
 				244052701390315D00515ADE /* CoreGraphics.framework */,
@@ -371,6 +375,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DCTFetchedResultsSearchControllerDemo/DCTFetchedResultsSearchController-Prefix.pch";
 				INFOPLIST_FILE = "DCTFetchedResultsSearchControllerDemo/DCTFetchedResultsSearchController-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -385,6 +390,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DCTFetchedResultsSearchControllerDemo/DCTFetchedResultsSearchController-Prefix.pch";
 				INFOPLIST_FILE = "DCTFetchedResultsSearchControllerDemo/DCTFetchedResultsSearchController-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
