@@ -1,0 +1,9 @@
+[submodule "DCTFetchedResultsSearchController"]
+	path = DCTFetchedResultsSearchController
+	url = git://github.com/danielctull/DCTFetchedResultsSearchController.git
+[submodule "SampleCoreData"]
+	path = SampleCoreData
+	url = git://github.com/danielctull/SampleCoreData.git
+[submodule "FRCTableViewDataSources"]
+	path = FRCTableViewDataSources
+	url = git://github.com/freerangecode/FRCTableViewDataSources.git
