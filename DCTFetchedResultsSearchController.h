@@ -34,10 +34,23 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef dctfetchedresultssearchcontroller
+#define dctfetchedresultssearchcontroller_1_0     10000
+#define dctfetchedresultssearchcontroller_2_0     20000
+#define dctfetchedresultssearchcontroller_2_0_1   20001
+#define dctfetchedresultssearchcontroller         dctfetchedresultssearchcontroller_2_0_1
+#endif
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "FRCFetchedResultsTableViewDataSource.h"
+
+#if !defined frctableviewdatasources
+#warning "FRCTableViewDataSources is required to use DCTFetchedResultsSearchController. Download from https://github.com/freerangecode/FRCTableViewDataSources"
+#elif frctableviewdatasources < frctableviewdatasources_1_0_2
+#warning "FRCTableViewDataSources 1.0.2 is required with this version of DCTFetchedResultsSearchController. Update at https://github.com/freerangecode/FRCTableViewDataSources"
+#endif
 
 typedef NSFetchRequest *(^DCTFetchedResultsSearchControllerSearchBlock) (NSString *searchString, NSArray *scopeOptions, NSInteger selectedOption);
 
