@@ -44,13 +44,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-#import "FRCFetchedResultsTableViewDataSource.h"
-
-#if !defined frctableviewdatasources
-#warning "FRCTableViewDataSources is required to use DCTFetchedResultsSearchController. Download from https://github.com/freerangecode/FRCTableViewDataSources"
-#elif frctableviewdatasources < frctableviewdatasources_1_0_2
-#warning "FRCTableViewDataSources 1.0.2 is required with this version of DCTFetchedResultsSearchController. Update at https://github.com/freerangecode/FRCTableViewDataSources"
-#endif
+#import <DCTTableViewDataSources/DCTTableViewDataSources.h>
 
 typedef NSFetchRequest *(^DCTFetchedResultsSearchControllerSearchBlock) (NSString *searchString, NSArray *scopeOptions, NSInteger selectedOption);
 
@@ -59,7 +53,7 @@ typedef NSFetchRequest *(^DCTFetchedResultsSearchControllerSearchBlock) (NSStrin
 @interface DCTFetchedResultsSearchController : NSObject <UISearchDisplayDelegate>
 
 @property (nonatomic, strong) IBOutlet UISearchDisplayController *searchDisplayController;
-@property (nonatomic, strong, readonly) FRCFetchedResultsTableViewDataSource *fetchedResultsTableViewDataSource;
+@property (nonatomic, strong, readonly) DCTFetchedResultsTableViewDataSource *fetchedResultsTableViewDataSource;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, copy) DCTFetchedResultsSearchControllerSearchBlock searchBlock;
 

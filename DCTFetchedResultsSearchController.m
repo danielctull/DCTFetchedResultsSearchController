@@ -35,8 +35,6 @@
  */
 
 #import "DCTFetchedResultsSearchController.h"
-#import "FRCFetchedResultsTableViewDataSource.h"
-#import "FRCTableViewCell.h"
 
 @interface DCTFetchedResultsSearchController ()
 
@@ -59,10 +57,10 @@
 @synthesize fetchedResultsTableViewDataSource;
 @synthesize managedObjectContext;
 
-- (FRCFetchedResultsTableViewDataSource *)fetchedResultsTableViewDataSource {
+- (DCTFetchedResultsTableViewDataSource *)fetchedResultsTableViewDataSource {
 	
 	if (!fetchedResultsTableViewDataSource) {
-		fetchedResultsTableViewDataSource = [[FRCFetchedResultsTableViewDataSource alloc] init];
+		fetchedResultsTableViewDataSource = [[DCTFetchedResultsTableViewDataSource alloc] init];
 		fetchedResultsTableViewDataSource.tableView = self.searchDisplayController.searchResultsTableView;
 		self.searchDisplayController.searchResultsDataSource = self.fetchedResultsTableViewDataSource;
 		fetchedResultsTableViewDataSource.managedObjectContext = self.managedObjectContext;
